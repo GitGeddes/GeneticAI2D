@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=name
+comment0.target=Projectile(int)
+comment1.params=
+comment1.target=void\ act()
+comment2.params=cls
+comment2.target=boolean\ isIntersecting(java.lang.Class)
+comment3.params=
+comment3.target=double\ getDistToTarget()
+comment4.params=
+comment4.target=double\ getCurrDistToTarget()
+numComments=5
