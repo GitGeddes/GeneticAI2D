@@ -15,6 +15,7 @@ public class Shooter extends Actor {
     private int moveSpeed;
     private int wantRangeLeft;
     private int wantRangeRight;
+    private int lead;
     private double[] scores;
     private double scoreMean;
     private double scoreTrue;
@@ -54,16 +55,17 @@ public class Shooter extends Actor {
         }
     }
     
-    public Shooter(int name, int direction, int moveSpeed, int wantRangeLeft, int wantRangeRight) {
+    public Shooter(int name, int direction, int moveSpeed, int wantRangeLeft, int wantRangeRight, int lead) {
         this.name = name;
         this.direction = direction;
  
         this.wantRangeLeft = wantRangeLeft;
         this.wantRangeRight = wantRangeRight;
+        this.lead = lead;
         this.shotsFired = 1;
         this.seed = this.seedHelp(name, "name") + this.seedHelp(direction, "dirc") +
             this.seedHelp(moveSpeed, "move") + this.seedHelp(wantRangeLeft, "rnge") +
-            this.seedHelp(wantRangeRight, "rnge");
+            this.seedHelp(wantRangeRight, "rnge") + this.seedHelp(lead, "lead");
         this.bullet = new Projectile(name);
         this.addSensorsToList();
         this.scores = new double[this.shotsAllowed];
@@ -157,14 +159,14 @@ public class Shooter extends Actor {
         // change movespeed and/or direction to catch up to the target
         // take in direction from sensors to target and distance
         if (this.moveSpeed >= 1 && this.moveSpeed <= 8) {
-            if (data[0] >= data[1] - 5 && data[0] <= data[1] + 5) {
+            if (data[0] >= data[1] && data[0] <= data[1]) {
                 this.moveSpeed -= 1;
                 if (data[2] < 0.0) {
                     this.direction = 1;
                 } else {
                     this.direction = -1;
                 }
-            } else if (data[0] < data[1] - 4 || data[0] > data[1] + 4) {
+            } else if (data[0] < data[1] || data[0] > data[1]) {
                 this.moveSpeed += 1;
                 if (data[2] < 0.0) {
                     this.direction = -1;
@@ -177,11 +179,7 @@ public class Shooter extends Actor {
         } else if (this.moveSpeed > 8) {
             this.moveSpeed = 8;
         }
-        /*if (data[2] == 0.0) {
-            this.direction = -1;
-        } else {
-            this.direction = 1;
-        }*/
+        this.direction *= data[2];
     }
     
     public int[] unpackSeed() {

@@ -28,7 +28,8 @@ public class Background extends World {
             this.makeRandShooterRandDir(),
             (int) (Math.random() * 6 + 1),
             (int) (Math.random() * 290 + 10),
-            (int) (Math.random() * 290 + 300));
+            (int) (Math.random() * 290 + 300),
+            (int) (Math.random() * 90 + 10));
     }
     
     public void addShootersToList() {
